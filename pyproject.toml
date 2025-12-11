@@ -1,46 +1,143 @@
 [build-system]
-requires      = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name            = "pyschlage"
-description     = "Python API for interacting with Schlage WiFi locks."
-authors         = [
-    {name = "David Knowles", email = "dknowles2@gmail.com"},
-]
-dependencies    = ["pycognito", "requests"]
+name = "pyschlage"
+description = "Python API for interacting with Schlage WiFi locks."
+authors = [{ name = "David Knowles", email = "dknowles2@gmail.com" }]
+
 requires-python = ">=3.11"
-dynamic         = ["readme", "version"]
-license         = {text = "Apache-2.0"}
-keywords        = ["schlage", "api", "iot"]
-classifiers     = [
+dynamic = ["readme", "version"]
+license = { text = "Apache-2.0" }
+keywords = ["schlage", "api", "iot"]
+classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+dependencies = ["pycognito==2024.5.1", "requests==2.32.5"]
+
+[dependency-groups]
+dev = ["pre-commit==4.5.0", "ruff==0.14.8"]
+test = [
+    "mypy==1.19.0",
+    "pytest==9.0.2",
+    "pytest-timeout==2.4.0",
+    "types-requests==2.32.4.20250913",
+]
+
 
 [project.urls]
-"Homepage"      = "https://github.com/dknowles2/pyschlage"
-"Source Code"   = "https://github.com/dknowles2/pyschlage"
-"Bug Reports"   = "https://github.com/dknowles2/pyschlage/issues"
+"Homepage" = "https://github.com/dknowles2/pyschlage"
+"Source Code" = "https://github.com/dknowles2/pyschlage"
+"Bug Reports" = "https://github.com/dknowles2/pyschlage/issues"
 "Documentation" = "https://pyschlage.readthedocs.io"
 
+[tool.uv]
+default-groups = ["dev", "test"]
+
 [tool.setuptools]
-platforms            = ["any"]
-zip-safe             = true
+platforms = ["any"]
+zip-safe = true
 include-package-data = true
 
 [tool.setuptools.dynamic]
-readme          = { file = ["README.md"], content-type = "text/markdown" }
+readme = { file = ["README.md"], content-type = "text/markdown" }
 
 [tool.setuptools_scm]
 write_to = "pyschlage/_version.py"
 
 [tool.coverage.report]
-omit     = ["pyschlage/_version.py"]
+omit = ["pyschlage/_version.py"]
 
-[tool.isort]
-profile                    = "black"
-combine_as_imports         = true
-force_sort_within_sections = true
-forced_separate            = ["tests"]
+[tool.ruff]
+target-version = "py311"
+src = ["pyschlage"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+line-ending = "auto"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    # Annotation and type hint rules
+    "ANN401", # Disallowing dynamically typed expressions (too strict)
+
+    # Docstring convention conflicts
+    "D202", # No blank lines allowed after function docstring
+    "D203", # 1 blank line required before class docstring
+    "D213", # Multi-line docstring summary should start at the second line
+    "D404", # First word of the docstring should not be "This"
+    "D406", # Section name should end with a newline
+    "D407", # Section name underlining
+    "D411", # Missing blank line before section
+
+    # Style/tidiness adjustments
+    "TID252", # Relative imports
+    "E731",   # Do not assign a lambda expression, use a def
+
+    # Formatting conflicts (black/ruff fmt)
+    "COM812",
+    "COM819",
+    "D206",
+    "E501",   # Line too long (handled by formatter)
+    "ISC001",
+    "Q000",
+    "Q001",
+    "Q002",
+    "Q003",
+    "W191",
+    "RUF012", # Broken rule in some cases
+
+    # GitHub actions
+    "INP001", # File is part of an implicit namespace package
+
+    # Project preference
+    "ERA001", # Found commented-out code
+    "RUF001", # String contains ambiguous character
+    "S101",   # Use of assert detected
+    "TC001",  # Move application import into type checking
+    "TC006",  # Add quotes to type expression in typing.cast()
+
+    # TODO: Temporary ignores, to review
+    "ANN001",  # Missing type annotation for function argument
+    "ANN201",  # Missing return type annotation for public function
+    "ANN202",  # Missing return type annotation for private function
+    "ANN204",  # Missing return type annotation for special method
+    "DTZ005",  # The use of `datetime.datetime.now()` without `tz` argument is not allowed
+    "EM101",   # Exception must not use a string literal, assign to variable first
+    "EM102",   # Exception must not use an f-string literal, assign to variable first
+    "FBT001",  # Boolean-typed positional argument in function definition
+    "FBT002",  # Boolean-typed positional argument in function definition
+    "PLR2004", # Magic value used in comparison
+    "PTH103",  # `os.makedirs()` should be replaced by `Path.mkdir()`
+    "PTH104",  # `os.rename()` should be replaced by `Path.rename()`
+    "PTH118",  # `os.path.join()` should be replaced by `Path` with `/` operator
+    "PTH120",  # `os.path.dirname()` should be replaced by `Path.parent`
+    "PTH123",  # `open()` should be replaced by `Path.open()`
+    "PYI041",  # Use `float` instead of `int | float`
+    "RET504",  # Unnecessary assignment before `return` statement
+    "RET505",  # Unnecessary `else` after `return` statement
+    "SIM102",  # Use a single `if`-statement instead of nested `if`-statements
+    "TC003",   # Move standard library import into a type-checking block
+    "TRY003",  # Avoid specifying long messages outside the exception class
+    "TRY004",  # Prefer `TypeError` exception for invalid type
+    "TRY300",  # Consider moving this statement to an `else` block
+    "TRY400",  # Use `logging.exception` instead of `logging.error`
+]
+
+[tool.ruff.lint.isort]
+length-sort = true
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+combine-as-imports = true
