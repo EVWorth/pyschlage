@@ -66,9 +66,12 @@ line-ending = "auto"
 select = ["ALL"]
 ignore = [
     # Annotation and type hint rules
+    "ANN002", # Disallowing dynamically typed expressions (too strict)
+    "ANN003", # Disallowing dynamically typed expressions (too strict)
     "ANN401", # Disallowing dynamically typed expressions (too strict)
 
     # Docstring convention conflicts
+    "D105", # Missing docstring in magic method
     "D202", # No blank lines allowed after function docstring
     "D203", # 1 blank line required before class docstring
     "D213", # Multi-line docstring summary should start at the second line
@@ -101,6 +104,7 @@ ignore = [
     "ERA001", # Found commented-out code
     "RUF001", # String contains ambiguous character
     "S101",   # Use of assert detected
+    "SLF001", # Private member access
     "TC001",  # Move application import into type checking
     "TC006",  # Add quotes to type expression in typing.cast()
 
