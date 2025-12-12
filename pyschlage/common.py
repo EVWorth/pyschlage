@@ -24,7 +24,7 @@ class Mutable:
     @classmethod
     @abstractmethod
     def from_json(cls, auth: Auth, json: dict[str, Any], *args, **kwargs) -> Mutable:
-        """Creates a new instance from a JSON dict."""
+        """Create a new instance from a JSON dict."""
         raise NotImplementedError
 
     def __getstate__(self):
@@ -46,7 +46,7 @@ class Mutable:
 
 
 def utc2local(utc: datetime) -> datetime:
-    """Converts a UTC datetime to localtime."""
+    """Convert a UTC datetime to localtime."""
     epoch = mktime(utc.timetuple())
     offset = datetime.fromtimestamp(epoch) - datetime.fromtimestamp(epoch, UTC).replace(
         tzinfo=None
@@ -55,13 +55,13 @@ def utc2local(utc: datetime) -> datetime:
 
 
 def fromisoformat(dt: str) -> datetime:
-    """Converts an ISO formatted datetime into a datetime object."""
+    """Convert an ISO formatted datetime into a datetime object."""
     # datetime.fromisoformat() doesn't like fractional seconds with a "Z" suffix.
     return datetime.fromisoformat(dt.rstrip("Z") + "+00:00")
 
 
 def redact(json: dict[Any, Any], *, allowed: list[str]) -> dict[str, Any]:
-    """Returns a copy of the given JSON dict with non-allowed keys redacted."""
+    """Return a copy of the given JSON dict with non-allowed keys redacted."""
     if len(allowed) == 1 and allowed[0] == "*":
         return deepcopy(json)
 

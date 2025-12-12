@@ -33,7 +33,7 @@ class Device(Mutable):
 
     @staticmethod
     def request_path(device_id: str | None = None) -> str:
-        """Returns the request path for a Lock.
+        """Return the request path for a Lock.
 
         :meta private:
         """
@@ -43,7 +43,7 @@ class Device(Mutable):
         return path
 
     def send_command(self, command: str, data: dict[Any, Any]) -> Response:
-        """Sends a command to the device."""
+        """Send a command to the device."""
         if not self._auth:
             raise NotAuthenticatedError
         path = f"{self.request_path(self.device_id)}/commands"

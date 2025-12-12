@@ -20,7 +20,7 @@ class User:
 
     @staticmethod
     def request_path(user_id: str | None = None) -> str:
-        """Returns the request path for a User.
+        """Return the request path for a User.
 
         :meta private:
         """
@@ -31,7 +31,7 @@ class User:
 
     @classmethod
     def from_json(cls, json) -> User:
-        """Creates a User from a JSON dict.
+        """Create a User from a JSON dict.
 
         :meta private:
         """

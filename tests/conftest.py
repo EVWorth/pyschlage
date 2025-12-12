@@ -4,12 +4,11 @@ from typing import Any
 from unittest.mock import Mock, create_autospec
 
 from pytest import fixture
-
+from pyschlage.log import LockLog
 from pyschlage.auth import Auth
 from pyschlage.code import AccessCode
-from pyschlage.device import Device
 from pyschlage.lock import Lock
-from pyschlage.log import LockLog
+from pyschlage.device import Device
 from pyschlage.notification import ON_UNLOCK_ACTION, Notification
 
 

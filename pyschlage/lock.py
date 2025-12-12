@@ -379,7 +379,7 @@ class Lock(Device):
             yield notification
 
     def add_access_code(self, code: AccessCode):
-        """Adds an access code to the lock.
+        """Add an access code to the lock.
 
         :param code: The access code to add.
         :type code: pyschlage.code.AccessCode
@@ -391,17 +391,15 @@ class Lock(Device):
         code.save()
 
     def set_beeper(self, enabled: bool):
-        """Sets the beeper_enabled setting."""
+        """Set the beeper_enabled setting."""
         self._put_attributes({"beeperEnabled": 1 if enabled else 0})
 
     def set_lock_and_leave(self, enabled: bool):
-        """Sets the lock_and_leave setting."""
+        """Set the lock_and_leave setting."""
         self._put_attributes({"lockAndLeaveEnabled": 1 if enabled else 0})
 
     def set_auto_lock_time(self, auto_lock_time: int):
-        """Sets the auto_lock_time setting. Setting it to `0` turns off the
-        auto-lock feature.
-        """
+        """Set the auto_lock_time setting. Setting it to `0` turns off the auto-lock feature."""
         if auto_lock_time not in AUTO_LOCK_TIMES:
             raise ValueError(f"auto_lock_time must be one of: {AUTO_LOCK_TIMES}")
         self._put_attributes({"autoLockTime": auto_lock_time})

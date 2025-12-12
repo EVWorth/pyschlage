@@ -24,7 +24,7 @@ _NOT_AUTHORIZED_ERRORS = (
 API_KEY = "hnuu9jbbJr7MssFDWm5nU2Z7nG5Q5rxsaqWsE7e9"
 BASE_URL = "https://api.allegion.yonomi.cloud/v1"
 CLIENT_ID = "t5836cptp2s1il0u9lki03j5"
-CLIENT_SECRET = "1kfmt18bgaig51in4j4v1j3jbe7ioqtjhle5o6knqc5dat0tpuvo"
+CLIENT_SECRET = "1kfmt18bgaig51in4j4v1j3jbe7ioqtjhle5o6knqc5dat0tpuvo"  # noqa: S105
 USER_POOL_REGION = "us-west-2"
 USER_POOL_ID = USER_POOL_REGION + "_2zhrVs9d4"
 
@@ -70,7 +70,7 @@ class Auth:
     """Handles authentication for the Schlage WiFi cloud service."""
 
     def __init__(self, username: str, password: str) -> None:
-        """Initializes an Auth object.
+        """Initialize an Auth object.
 
         :param username: The username associated with the Schlage account.
         :type username: str
@@ -92,7 +92,7 @@ class Auth:
 
     @_translate_auth_errors
     def authenticate(self):
-        """Performs authentication with AWS.
+        """Perform authentication with AWS.
 
         :raise pyschlage.exceptions.NotAuthorizedError: When authentication fails.
         :raise pyschlage.exceptions.UnknownError: On other errors.
@@ -115,7 +115,7 @@ class Auth:
     def request(
         self, method: str, path: str, base_url: str = BASE_URL, **kwargs
     ) -> requests.Response:
-        """Performs a request against the Schlage WiFi cloud service.
+        """Perform a request against the Schlage WiFi cloud service.
 
         :meta private:
         """
@@ -124,5 +124,5 @@ class Auth:
             kwargs["headers"] = {}
         kwargs["headers"]["X-Api-Key"] = API_KEY
         kwargs.setdefault("timeout", _DEFAULT_TIMEOUT)
-        # pylint: disable=missing-timeout
-        return requests.request(method, f"{base_url}/{path.lstrip('/')}", **kwargs)
+
+        return requests.request(method, f"{base_url}/{path.lstrip('/')}", **kwargs)  # noqa: S113

@@ -34,7 +34,7 @@ class Notification(Mutable):
 
     @staticmethod
     def request_path(notification_id: str | None = None) -> str:
-        """Returns the request path for the Notification.
+        """Return the request path for the Notification.
 
         :meta private:
         """
@@ -45,6 +45,7 @@ class Notification(Mutable):
 
     @classmethod
     def from_json(cls, auth: Auth, json: dict[str, Any]) -> "Notification":
+        """Create a Notification from a JSON dict."""
         return Notification(
             _auth=auth,
             _json=json,
@@ -59,7 +60,7 @@ class Notification(Mutable):
         )
 
     def to_json(self) -> dict[str, Any]:
-        """Returns a JSON dict with this Notification's mutable properties."""
+        """Return a JSON dict with this Notification's mutable properties."""
         json: dict[str, Any] = {
             "notificationId": self.notification_id,
             "devicetypeId": self.device_type,
@@ -71,7 +72,7 @@ class Notification(Mutable):
         return json
 
     def save(self):
-        """Saves the Notification."""
+        """Save the Notification."""
         if not self._auth:
             raise NotAuthenticatedError
         method = "put" if self.created_at else "post"
@@ -82,7 +83,7 @@ class Notification(Mutable):
         self._update_with(resp.json())
 
     def delete(self):
-        """Deletes the notification."""
+        """Delete the notification."""
         if not self._auth:
             raise NotAuthenticatedError
         path = self.request_path(self.notification_id)
