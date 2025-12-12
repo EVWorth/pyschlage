@@ -80,9 +80,8 @@ def redact(json: dict[Any, Any], *, allowed: list[str]) -> dict[str, Any]:
             ret[k] = redact(v, allowed=allowed_here.get(k, []))
         elif k in allowed_here:
             ret[k] = v
+        elif isinstance(v, list):
+            ret[k] = ["<REDACTED>"]
         else:
-            if isinstance(v, list):
-                ret[k] = ["<REDACTED>"]
-            else:
-                ret[k] = "<REDACTED>"
+            ret[k] = "<REDACTED>"
     return ret

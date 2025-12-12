@@ -202,7 +202,7 @@ class AccessCode(Mutable):
             access_code_id=json["accesscodeId"],
             name=json["friendlyName"],
             code=f"{json['accessCode']:0{access_code_length}}",
-            disabled=bool(json.get("disabled", None)),
+            disabled=bool(json.get("disabled")),
             schedule=schedule,
             device_id=device.device_id,
         )

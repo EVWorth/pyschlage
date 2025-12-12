@@ -53,7 +53,7 @@ class Notification(Mutable):
             device_id=json["deviceId"],
             notification_type=json["notificationDefinitionId"],
             active=json["active"],
-            filter_value=json.get("filterValue", None),
+            filter_value=json.get("filterValue"),
             created_at=fromisoformat(json["createdAt"]),
             updated_at=fromisoformat(json["updatedAt"]),
         )

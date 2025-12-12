@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterable
+from typing import Any
 from dataclasses import field, dataclass
+from collections.abc import Iterable
 
 from .log import LockLog
 from .auth import Auth
@@ -399,7 +400,8 @@ class Lock(Device):
 
     def set_auto_lock_time(self, auto_lock_time: int):
         """Sets the auto_lock_time setting. Setting it to `0` turns off the
-        auto-lock feature."""
+        auto-lock feature.
+        """
         if auto_lock_time not in AUTO_LOCK_TIMES:
             raise ValueError(f"auto_lock_time must be one of: {AUTO_LOCK_TIMES}")
         self._put_attributes({"autoLockTime": auto_lock_time})
