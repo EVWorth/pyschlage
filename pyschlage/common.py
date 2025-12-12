@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from copy import deepcopy
-from dataclasses import dataclass, field, fields
-from datetime import UTC, datetime
-from threading import Lock as Mutex
 from time import mktime
 from typing import Any
+from datetime import UTC, datetime
+from threading import Lock as Mutex
+from dataclasses import field, fields, dataclass
 
 from .auth import Auth
 from .exceptions import NotAuthenticatedError

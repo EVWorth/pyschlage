@@ -2,15 +2,16 @@
 
 from __future__ import annotations
 
+from typing import TypeVar
 from functools import wraps
-from typing import Callable, TypeVar
+from collections.abc import Callable
 
-from botocore.exceptions import ClientError
+import requests
 import pycognito
 from pycognito import utils
-import requests
+from botocore.exceptions import ClientError
 
-from .exceptions import NotAuthorizedError, UnknownError
+from .exceptions import UnknownError, NotAuthorizedError
 
 _DEFAULT_TIMEOUT = 60
 _NOT_AUTHORIZED_ERRORS = (

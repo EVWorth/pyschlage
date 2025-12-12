@@ -2,17 +2,17 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from typing import Any, Iterable
+from dataclasses import field, dataclass
 
+from .log import LockLog
 from .auth import Auth
 from .code import AccessCode
+from .user import User
 from .common import redact
 from .device import Device, DeviceType
 from .exceptions import NotAuthenticatedError
-from .log import LockLog
 from .notification import ON_UNLOCK_ACTION, Notification
-from .user import User
 
 AUTO_LOCK_TIMES = (0, 5, 15, 30, 60, 120, 240, 300)
 
